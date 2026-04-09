@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>מערכת המידע — המועצה לגיל הרך</title>
   <link href="https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
   <style>
     *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 
@@ -452,6 +453,22 @@
       opacity: 0.8; transition: opacity 0.2s;
       margin-right: auto;
     }
+    .export-btn {
+      background: rgba(255,255,255,0.15);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: white;
+      padding: 6px 16px;
+      border-radius: 6px;
+      font-family: 'Heebo', Arial, sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      display: flex; align-items: center; gap: 6px;
+      transition: background 0.2s;
+    }
+    .export-btn:hover { background: rgba(255,255,255,0.25); }
+    .export-btn:disabled { opacity: 0.5; cursor: wait; }
+    .export-btn svg { width: 16px; height: 16px; }
     .header-back:hover { opacity: 1; }
     .header-back svg { width: 18px; height: 18px; }
 
@@ -700,6 +717,10 @@
     <div class="main-area">
       <div class="top-header">
         <span class="header-title" id="header-title"></span>
+        <button class="export-btn" id="export-btn" onclick="exportToExcel()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+          ייצוא לאקסל
+        </button>
         <button class="header-back" onclick="showScreen('categories')">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
           חזרה למפת התחומים
@@ -730,73 +751,76 @@
 
     const PBI_BASE = 'https://app.powerbi.com/view?r=eyJrIjoiZTZmNmUyOTctOWFhZC00NTE1LWExOGQtZDczYTM4ZDY1ZTUxIiwidCI6IjU1Njk3MDA0LWJmZGItNDUzYS1iOThhLTJlYmIzM2E1NGFmZCIsImMiOjl9';
 
+    const SUPABASE_URL = 'https://xbskwyycyuumgrhzjgkp.supabase.co';
+    const SUPABASE_KEY = 'sb_publishable_ySitLJplcUGsUjcT_ETRPA_LVb5GnvG';
+
     const CATEGORIES = {
       demographics: { name: 'דמוגרפיה', pages: [
-        { name: 'פריון לפי מדינות', id: '6d50f3d117c913d20e05' },
-        { name: 'מספר הלידות בישראל', id: 'c41ed023ab5626e798d9' },
-        { name: 'פריון לפי מגזר', id: '82660ca51e4b01649e27' },
-        { name: 'ילדים עד גיל 6', id: '236b24550a0c8bb1064d' }
+        { name: 'פריון לפי מדינות', id: '6d50f3d117c913d20e05', tbl: 'data_indicators', filter: 'פריון מדינות' },
+        { name: 'מספר הלידות בישראל', id: 'c41ed023ab5626e798d9', tbl: 'data_indicators', filter: 'לידות בישראל' },
+        { name: 'פריון לפי מגזר', id: '82660ca51e4b01649e27', tbl: 'data_indicators', filter: 'שיעור פריון לפי מגזר' },
+        { name: 'ילדים עד גיל 6', id: '236b24550a0c8bb1064d', tbl: 'data_indicators', filter: 'מדדים דמוגרפים' }
       ]},
       family: { name: 'הורים ומשפחה', pages: [
-        { name: 'חופשת לידה', id: 'bd5ca37945a05c06d904' },
-        { name: 'הוצאה ציבורית על חופשות לידה', id: '1a773c5bc000dcac42e6' },
-        { name: 'גמלת אמהות', id: '37defe99d5027e2c3907' },
-        { name: 'תעסוקת אמהות במבט השוואתי', id: '3ed151073c73be461c5b' },
-        { name: 'תעסוקת אמהות בישראל', id: 'c4f8ed3a43a2ce60a656' },
-        { name: 'עובדים שעות ארוכות', id: 'a672adc316071a9a7c0a' },
-        { name: 'גמישות במקום העבודה', id: 'd4f389175b722710ced2' },
-        { name: 'שעות פנאי', id: '88534341ed362ac943e1' },
-        { name: 'איזון בית-עבודה', id: '930539f03d260b5472e5' }
+        { name: 'חופשת לידה', id: 'bd5ca37945a05c06d904', tbl: 'data_indicators', filter: 'משך חופשת לידה' },
+        { name: 'הוצאה ציבורית על חופשות לידה', id: '1a773c5bc000dcac42e6', tbl: 'data_indicators', filter: 'הוצאה ציבורית על חופשות לידה והורות' },
+        { name: 'גמלת אמהות', id: '37defe99d5027e2c3907', tbl: 'data_indicators', filter: 'גמלאות אמהות' },
+        { name: 'תעסוקת אמהות במבט השוואתי', id: '3ed151073c73be461c5b', tbl: 'data_indicators', filter: 'תעסוקה בהשוואה למדינות' },
+        { name: 'תעסוקת אמהות בישראל', id: 'c4f8ed3a43a2ce60a656', tbl: 'data_indicators', filter: 'תעסוקת אמהות בישראל' },
+        { name: 'עובדים שעות ארוכות', id: 'a672adc316071a9a7c0a', tbl: 'data_indicators', filter: 'שעות עבודה ארוכות' },
+        { name: 'גמישות במקום העבודה', id: 'd4f389175b722710ced2', tbl: 'seker', filter: 'אזיה גמישות מקום העבודה מאפשר' },
+        { name: 'שעות פנאי', id: '88534341ed362ac943e1', tbl: 'data_indicators', filter: 'שעות פנאי' },
+        { name: 'איזון בית-עבודה', id: '930539f03d260b5472e5', tbl: 'seker', filter: 'קשיים מרכזיים לאיזון בית-עבודה' }
       ]},
       community: { name: 'קהילה', pages: [
-        { name: 'מקורות לקבלת מידע', id: 'd20b75b759a08a4e0760' },
-        { name: 'תחומי ידע חסרים', id: 'b05bea2fadc19937b05e' },
-        { name: 'הנקה', id: '0d843bab50c0284e7d07' },
-        { name: 'התפתחות הילד', id: '94ca322ab00dc45061d1' },
-        { name: 'אבחון עיכוב התפתחות', id: 'cfcefdcc21c68905a942' },
-        { name: 'טיפות חלב', id: '1bcefc6d212955c5bcb6' },
-        { name: 'עודף משקל', id: 'efcef504a9ddb0202e2c' },
-        { name: 'התחסנות תינוקות', id: 'ed24de00a0791e0503d4' },
-        { name: 'התחסנות בישראל', id: 'f8757e3b98e1cca5467e' },
-        { name: 'התחסנות לפי ישוב', id: '088403a8528424b8db98' },
-        { name: 'היפגעות ילדים', id: 'c948591c45447abe0810' },
-        { name: 'תמותת תינוקות', id: '02e7dcec22501a4ae50c' }
+        { name: 'מקורות לקבלת מידע', id: 'd20b75b759a08a4e0760', tbl: 'seker', filter: 'הגורמים המשמעותיים לקבלת מידע לקראת או לאחר הלידה' },
+        { name: 'תחומי ידע חסרים', id: 'b05bea2fadc19937b05e', tbl: 'seker', filter: 'תחומי ידע חסרים' },
+        { name: 'הנקה', id: '0d843bab50c0284e7d07', tbl: 'data_indicators', filter: 'הנקה' },
+        { name: 'התפתחות הילד', id: '94ca322ab00dc45061d1', tbl: 'seker', filter: 'זמני המתנה לאבחון' },
+        { name: 'אבחון עיכוב התפתחות', id: 'cfcefdcc21c68905a942', tbl: 'seker', filter: 'עיכוב התפתחות' },
+        { name: 'טיפות חלב', id: '1bcefc6d212955c5bcb6', tbl: 'data_indicators', filter: 'טיפות חלב' },
+        { name: 'עודף משקל', id: 'efcef504a9ddb0202e2c', tbl: 'data_indicators', filter: 'עודף משקל' },
+        { name: 'התחסנות תינוקות', id: 'ed24de00a0791e0503d4', tbl: 'data_indicators', filter: 'התחסנות תינוקות' },
+        { name: 'התחסנות בישראל', id: 'f8757e3b98e1cca5467e', tbl: 'data_indicators', filter: 'התחסנות' },
+        { name: 'התחסנות לפי ישוב', id: '088403a8528424b8db98', tbl: 'data_indicators', filter: 'התחסנות לפי ישובים' },
+        { name: 'היפגעות ילדים', id: 'c948591c45447abe0810', tbl: 'data_indicators', filter: 'היפגעות ילדים' },
+        { name: 'תמותת תינוקות', id: '02e7dcec22501a4ae50c', tbl: 'data_indicators', filter: 'תמותת תינוקות' }
       ]},
       education: { name: 'מסגרות חינוך וטיפול', pages: [
-        { name: 'שביעות רצון', id: '5268944a1d2035ae9e37' },
-        { name: 'גורמים לבחירת מסגרת', id: '405944c39a7ba7bda82e' },
-        { name: 'שכר גננות השוואתי', id: '5e9faf48c508de07ebb7' },
-        { name: 'גיל חינוך חובה', id: 'e8386b1e27065327b480' },
-        { name: 'רישום למסגרות', id: '1854f434a0766c446957' },
-        { name: 'יחס ילדים לאיש צוות', id: 'd94d55512adab344008e' },
-        { name: 'גודל קבוצה', id: 'db066a702359c03b5902' }
+        { name: 'שביעות רצון', id: '5268944a1d2035ae9e37', tbl: 'seker', filter: 'שביעות רצון מהמסגרת' },
+        { name: 'גורמים לבחירת מסגרת', id: '405944c39a7ba7bda82e', tbl: 'seker', filter: 'הגורמים החשובים  בבחירת מסגרת' },
+        { name: 'שכר גננות השוואתי', id: '5e9faf48c508de07ebb7', tbl: 'data_indicators', filter: 'שכר גננות' },
+        { name: 'גיל חינוך חובה', id: 'e8386b1e27065327b480', tbl: 'data_indicators', filter: 'חינוך חובה' },
+        { name: 'רישום למסגרות', id: '1854f434a0766c446957', tbl: 'seker', filter: 'רישום למסגרות' },
+        { name: 'יחס ילדים לאיש צוות', id: 'd94d55512adab344008e', tbl: 'data_indicators', filter: 'יחס ילדים לאיש צוות' },
+        { name: 'גודל קבוצה', id: 'db066a702359c03b5902', tbl: 'data_indicators', filter: 'גודל קבוצה מכסימלי' }
       ]},
       municipal: { name: 'מבט רשותי', pages: [
-        { name: 'מספר תלמידים ומוסדות', id: '7227e074250a00cb00de' },
-        { name: 'תקציב', id: '7c2867fe320127a62825' },
-        { name: 'שעות', id: '536e84d354dedce6a002' },
-        { name: 'גנים', id: 'cdfb0e1d002e31163be2' },
-        { name: 'מדדים לפי רשויות', id: '93c258eb7b8dec2be25a' },
-        { name: 'מגוון מדדים לרשות', id: 'f7507c92420bd2432693' }
+        { name: 'מספר תלמידים ומוסדות', id: '7227e074250a00cb00de', tbl: 'municipal', filter: 'מבט רשותי: מספר תלמידים ומוסדות' },
+        { name: 'תקציב', id: '7c2867fe320127a62825', tbl: 'municipal', filter: 'מבט רשותי: תקציב' },
+        { name: 'שעות', id: '536e84d354dedce6a002', tbl: 'municipal', filter: 'מבט רשותי: שעות' },
+        { name: 'גנים', id: 'cdfb0e1d002e31163be2', tbl: 'municipal', filter: 'מבט רשותי' },
+        { name: 'מדדים לפי רשויות', id: '93c258eb7b8dec2be25a', tbl: 'municipal', filter: null },
+        { name: 'מגוון מדדים לרשות', id: 'f7507c92420bd2432693', tbl: 'municipal', filter: null }
       ]},
       budget: { name: 'תקציב', pages: [
-        { name: 'תקצוב הגיל הרך בישראל', id: '375701d0cb450b36869b' },
-        { name: 'הוצאה לילד', id: 'f79fdcba253a02787e78' },
-        { name: 'הוצאה פרטית וציבורית', id: '04a8d535378dd9994293' },
-        { name: 'הוצאות ישירות', id: '7fc775152d0c5a2bd683' },
-        { name: 'השקעה לפי מדינות', id: 'de87ca8596308ebddc1d' }
+        { name: 'תקצוב הגיל הרך בישראל', id: '375701d0cb450b36869b', tbl: 'data_indicators', filter: 'תקצוב הגיל הרך' },
+        { name: 'הוצאה לילד', id: 'f79fdcba253a02787e78', tbl: 'data_indicators', filter: 'הוצאה על חינוך לילד' },
+        { name: 'הוצאה פרטית וציבורית', id: '04a8d535378dd9994293', tbl: 'data_indicators', filter: 'הוצאה פרטית וציבורית' },
+        { name: 'הוצאות ישירות', id: '7fc775152d0c5a2bd683', tbl: 'data_indicators', filter: 'הוצאה ישירה על חינוך' },
+        { name: 'השקעה לפי מדינות', id: 'de87ca8596308ebddc1d', tbl: 'data_indicators', filter: 'השקעה בחינוך ביחס לתמג' }
       ]},
       talis: { name: 'סקר טאליס', pages: [
-        { name: 'חסמי פיתוח', id: '06b535137ad4b0c7102a' },
-        { name: 'תוכן', id: '60f9cc66dd7ebd078e3d' },
-        { name: 'אקלים חינוכי', id: '3895fae7093ec236b004' },
-        { name: 'חשיבה מתמטית', id: 'ef97311a8c50993a3046' },
-        { name: 'שפה', id: '32d121a14b4255504821' },
-        { name: 'קשר מסגרת הורים', id: '0fbfa62da5d820dcdbe5' },
-        { name: 'פדגוגיה', id: '4c812a34410cc6972ec6' },
-        { name: 'פיתוח מקצועי', id: 'f3b662ffeb4143a822c7' },
-        { name: 'איכות צוות', id: '069385d55b8099638bc9' },
-        { name: 'השכלת צוות', id: 'eca2ac77394280a7aaa2' }
+        { name: 'חסמי פיתוח', id: '06b535137ad4b0c7102a', tbl: 'talis', filter: 'חסמי פיתוח' },
+        { name: 'תוכן', id: '60f9cc66dd7ebd078e3d', tbl: 'talis', filter: 'תוכן' },
+        { name: 'אקלים חינוכי', id: '3895fae7093ec236b004', tbl: 'talis', filter: 'אקלים חינוכי' },
+        { name: 'חשיבה מתמטית', id: 'ef97311a8c50993a3046', tbl: 'talis', filter: 'חשיבה מתמטית' },
+        { name: 'שפה', id: '32d121a14b4255504821', tbl: 'talis', filter: 'שפה' },
+        { name: 'קשר מסגרת הורים', id: '0fbfa62da5d820dcdbe5', tbl: 'talis', filter: 'קשר מסגרת הורים' },
+        { name: 'פדגוגיה', id: '4c812a34410cc6972ec6', tbl: 'talis', filter: 'מסגרות איכות פדגוגיה' },
+        { name: 'פיתוח מקצועי', id: 'f3b662ffeb4143a822c7', tbl: 'talis', filter: 'פיתוח מקצועי' },
+        { name: 'איכות צוות', id: '069385d55b8099638bc9', tbl: 'talis', filter: 'איכות צוות' },
+        { name: 'השכלת צוות', id: 'eca2ac77394280a7aaa2', tbl: 'talis', filter: 'השכלת צוות' }
       ]}
     };
 
@@ -854,6 +878,72 @@
       loading.classList.remove('hidden');
       iframe.src = PBI_BASE + '&pageName=' + pageId;
       iframe.onload = () => setTimeout(() => loading.classList.add('hidden'), 300);
+    }
+
+    // ===========================================
+    // EXPORT TO EXCEL
+    // ===========================================
+    async function exportToExcel() {
+      const page = CATEGORIES[currentCategory].pages[currentPageIndex];
+      const btn = document.getElementById('export-btn');
+      btn.disabled = true;
+      btn.innerHTML = '<span class="spinner" style="width:16px;height:16px;border-width:2px;"></span> מייצא...';
+
+      try {
+        const tbl = page.tbl;
+        const filter = page.filter;
+        let url = `${SUPABASE_URL}/rest/v1/${tbl}?select=*`;
+
+        // Apply filter based on table type
+        if (filter) {
+          if (tbl === 'data_indicators') {
+            url += `&sinun_amud=eq.${encodeURIComponent(filter)}`;
+          } else if (tbl === 'talis') {
+            url += `&masach=eq.${encodeURIComponent(filter)}`;
+          } else if (tbl === 'municipal') {
+            // Municipal pages may use different filter columns
+            url += `&noseh=eq.${encodeURIComponent(filter)}`;
+          }
+        }
+
+        // Fetch all rows (paginate if needed)
+        const headers = {
+          'apikey': SUPABASE_KEY,
+          'Authorization': `Bearer ${SUPABASE_KEY}`,
+          'Range': '0-99999'
+        };
+
+        let rows;
+        if (tbl === 'seker') {
+          // SEKER is stored as JSONB, fetch and flatten
+          const r = await fetch(url, { headers });
+          const raw = await r.json();
+          rows = raw.map(row => row.data ? (typeof row.data === 'string' ? JSON.parse(row.data) : row.data) : row);
+        } else {
+          const r = await fetch(url, { headers });
+          rows = await r.json();
+          // Remove 'id' column from export
+          rows = rows.map(({ id, ...rest }) => rest);
+        }
+
+        if (!rows.length) {
+          alert('אין נתונים לייצוא עבור דף זה');
+          return;
+        }
+
+        // Create Excel workbook
+        const ws = XLSX.utils.json_to_sheet(rows);
+        const wb = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, page.name.substring(0, 31));
+        XLSX.writeFile(wb, `${page.name}.xlsx`);
+
+      } catch (err) {
+        console.error('Export error:', err);
+        alert('שגיאה בייצוא: ' + err.message);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>ייצוא לאקסל';
+      }
     }
 
     document.addEventListener('keydown', (e) => {
