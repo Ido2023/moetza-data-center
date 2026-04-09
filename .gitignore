@@ -1,0 +1,29 @@
+**/.pbi/localSettings.json
+**/.pbi/cache.abf
+
+# Power BI source files
+*.pbip
+*.Report/
+*.SemanticModel/
+
+# Data files
+*.xlsx
+*.csv
+
+# Working files
+audit_script.py
+חומרים מהמעצב/
+מקורות מידע/
+
+# Images not needed for the site
+coin-stack.png
+community (1).png
+earth-globe-with-continents-maps.png
+love.png
+menu.png
+pin (2).png
+sister-and-brother (3).png
+slide.png
+מסך ראשי.png
+רקע מסך מעודכן.png
+שער.png
