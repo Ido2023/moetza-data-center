@@ -490,6 +490,92 @@
       animation: spin 0.8s linear infinite;
     }
     @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ============================================
+       MOBILE RESPONSIVE
+       ============================================ */
+    @media (max-width: 768px) {
+      /* Splash */
+      .splash-orbit { width: 320px; height: 320px; }
+      .orbit-icon { width: 34px; height: 34px; }
+      .orbit-icon svg { width: 16px; height: 16px; }
+      .splash-center { max-width: 90vw; padding: 0 16px; }
+      .splash-logo-anim img { height: 80px; }
+      .splash-title { font-size: 26px; }
+      .splash-subtitle { font-size: 16px; }
+      .splash-desc { font-size: 13px; line-height: 1.7; }
+      .enter-btn { padding: 12px 36px; font-size: 16px; }
+
+      /* Categories */
+      #categories-screen { gap: 24px; padding: 20px; }
+      .cat-header img { height: 60px; }
+      .cat-header h1 { font-size: 28px; }
+      .cat-header { gap: 12px; margin-bottom: 0; }
+      .cat-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        width: 100%;
+        max-width: 100%;
+      }
+      .cat-grid-bottom {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
+        width: 100%;
+        max-width: 100%;
+      }
+      .cat-card {
+        padding: 20px 12px;
+        gap: 10px;
+      }
+      .cat-card-icon { width: 44px; height: 44px; }
+      .cat-card-icon svg { width: 22px; height: 22px; }
+      .cat-card-name { font-size: 14px; }
+      .cat-note { font-size: 11px; margin-top: 0; }
+
+      /* Category view — sidebar becomes top bar */
+      #category-screen {
+        flex-direction: column;
+      }
+      .sidebar {
+        width: 100%;
+        height: 52px;
+        flex-direction: row;
+        padding: 0 8px;
+        gap: 2px;
+        overflow-x: auto;
+      }
+      .sidebar-logo-wrap {
+        margin-bottom: 0;
+        margin-left: 8px;
+        flex-shrink: 0;
+      }
+      .sidebar-logo-wrap img { height: 30px; }
+      .sidebar-item {
+        width: 38px; height: 38px;
+        flex-shrink: 0;
+      }
+      .sidebar-item svg { width: 18px; height: 18px; }
+      .sidebar-item .tooltip { display: none; }
+
+      .top-header { height: 44px; padding: 0 12px; }
+      .header-title { font-size: 16px; }
+      .header-back { font-size: 12px; }
+      .header-back svg { width: 14px; height: 14px; }
+
+      .sub-tabs { height: 44px; padding: 0 8px; gap: 2px; }
+      .sub-tab { padding: 6px 12px; font-size: 12px; }
+    }
+
+    @media (max-width: 480px) {
+      .splash-orbit { width: 260px; height: 260px; }
+      .splash-title { font-size: 22px; }
+      .splash-subtitle { font-size: 14px; }
+      .splash-desc { font-size: 12px; }
+
+      .cat-header h1 { font-size: 24px; }
+      .cat-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+      .cat-grid-bottom { grid-template-columns: repeat(1, 1fr); gap: 10px; }
+    }
   </style>
 </head>
 <body>
