@@ -633,8 +633,12 @@ html, body {
   /* Allow scrolling on mobile */
   html, body { overflow: auto; overflow-x: hidden; }
 
-  /* Splash */
-  #splash-screen { overflow-y: auto; }
+  /* Splash — ensure button is reachable */
+  #splash-screen {
+    overflow-y: auto;
+    justify-content: flex-start;
+    padding: 40px 0 60px;
+  }
   .splash-orbit { width: 320px; height: 320px; }
   .orbit-icon { width: 34px; height: 34px; }
   .orbit-icon svg { width: 16px; height: 16px; }
