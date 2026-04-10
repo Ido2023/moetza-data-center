@@ -6,12 +6,18 @@
 *.Report/
 *.SemanticModel/
 
-# Data files
+# Data files (source Excel — generated JSON is tracked)
 *.xlsx
 *.csv
 
+# Environment & secrets
+.env
+.env.local
+.env.production
+
 # Working files
 audit_script.py
+audit_additional_indicators.py
 חומרים מהמעצב/
 מקורות מידע/
 
@@ -27,3 +33,16 @@ slide.png
 מסך ראשי.png
 רקע מסך מעודכן.png
 שער.png
+
+# Font build artifacts
+fonts/heebo-woff2.css
+fonts/urls.txt
+
+# Generated reports
+AUDIT_REPORT.html
+AUDIT_REPORT.md
+
+# Auto-update data
+auto_update/data/
+auto_update/logs/
+auto_update/.env
