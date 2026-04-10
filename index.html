@@ -7,8 +7,7 @@
   <title>מערכת המידע — המועצה לגיל הרך</title>
   <link rel="stylesheet" href="fonts/heebo.css">
   <link rel="stylesheet" href="style.css">
-  <script src="https://cdn.jsdelivr.net/npm/powerbi-client@2.23.1/dist/powerbi.min.js"></script>
-  <script src="lib/xlsx.full.min.js" defer></script>
+  <script src="lib/xlsx.full.min.js" defer>
   <script src="app.js" defer></script>
 </head>
 <body>
@@ -163,7 +162,10 @@
           <span class="sr-only">טוען את הדוח...</span>
         </div>
         <iframe id="pbi-iframe" allowFullScreen="true" title="דוח נתונים"></iframe>
-        <div id="pbi-embed-container" style="display:none;width:100%;height:100%;position:absolute;inset:0;"></div>
+        <button class="mobile-fullscreen-btn" id="mobile-fullscreen-btn" onclick="toggleReportFullscreen()" aria-label="הצג דוח במסך מלא">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
+          מסך מלא
+        </button>
       </div>
     </main>
   </section>

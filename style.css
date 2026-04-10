@@ -602,6 +602,30 @@ html, body {
 }
 .sidebar-overlay.visible { display: block; }
 
+/* Fullscreen button — hidden by default, shown on mobile */
+.mobile-fullscreen-btn {
+  display: none;
+  position: absolute;
+  bottom: 12px;
+  left: 12px;
+  z-index: 5;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: var(--teal-mid);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-family: 'Heebo', Arial, sans-serif;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  transition: background 0.2s;
+}
+.mobile-fullscreen-btn:hover { background: var(--teal-dark); }
+.mobile-fullscreen-btn svg { width: 16px; height: 16px; }
+
 /* ============================================
    MOBILE RESPONSIVE
    ============================================ */
@@ -749,16 +773,25 @@ html, body {
   .sub-tabs::-webkit-scrollbar { display: none; }
   .sub-tab { padding: 6px 12px; font-size: 12px; flex-shrink: 0; }
 
-  /* iframe — full available height, allow touch interactions */
+  /* iframe — oversized for readability, scrollable container */
   .iframe-container {
     flex: 1;
     min-height: 0;
-    overflow: hidden;
+    overflow: auto;
     -webkit-overflow-scrolling: touch;
+    position: relative;
   }
   .iframe-container iframe {
-    width: 100%;
-    height: 100%;
+    position: relative;
+    width: 900px;
+    height: 510px;
+    min-height: 100%;
+    border: none;
+  }
+
+  /* Fullscreen button — mobile only */
+  .mobile-fullscreen-btn {
+    display: flex;
   }
 }
 
