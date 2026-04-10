@@ -125,7 +125,6 @@ function openCategory(categoryKey) {
   currentPageIndex = 0;
   var cat = CATEGORIES[categoryKey];
   document.getElementById('header-title').textContent = cat.name;
-  closeMobileMenu();
 
   // Update sidebar active state
   document.querySelectorAll('.sidebar-item').forEach(function(item) {
@@ -177,25 +176,13 @@ function loadPage(pageId) {
   var loading = document.getElementById('iframe-loading');
   loading.classList.remove('hidden');
   loading.setAttribute('aria-hidden', 'false');
-
-  var url = PBI_BASE + '&pageName=' + pageId + '&navContentPaneEnabled=false';
-  if (window.innerWidth <= 768) {
-    url += '&chromeless=1';
-  }
-
-  iframe.src = url;
+  iframe.src = PBI_BASE + '&pageName=' + pageId;
   iframe.onload = function() {
     setTimeout(function() {
       loading.classList.add('hidden');
       loading.setAttribute('aria-hidden', 'true');
     }, 300);
   };
-}
-
-function toggleReportFullscreen() {
-  var iframe = document.getElementById('pbi-iframe');
-  if (iframe.requestFullscreen) iframe.requestFullscreen();
-  else if (iframe.webkitRequestFullscreen) iframe.webkitRequestFullscreen();
 }
 
 // ============================================
@@ -297,28 +284,6 @@ function exportToExcel() {
 }
 
 // ============================================
-// Mobile Menu
-// ============================================
-function toggleMobileMenu() {
-  var sidebar = document.getElementById('sidebar');
-  var overlay = document.getElementById('sidebar-overlay');
-  var isOpen = sidebar.classList.contains('open');
-  if (isOpen) {
-    closeMobileMenu();
-  } else {
-    sidebar.classList.add('open');
-    overlay.classList.add('visible');
-  }
-}
-
-function closeMobileMenu() {
-  var sidebar = document.getElementById('sidebar');
-  var overlay = document.getElementById('sidebar-overlay');
-  sidebar.classList.remove('open');
-  overlay.classList.remove('visible');
-}
-
-// ============================================
 // Keyboard Navigation
 // ============================================
 document.addEventListener('keydown', function(e) {
@@ -326,9 +291,5 @@ document.addEventListener('keydown', function(e) {
   var len = CATEGORIES[currentCategory].pages.length;
   if (e.key === 'ArrowLeft' && currentPageIndex < len - 1) selectPage(currentPageIndex + 1);
   else if (e.key === 'ArrowRight' && currentPageIndex > 0) selectPage(currentPageIndex - 1);
-  else if (e.key === 'Escape') {
-    var sidebar = document.getElementById('sidebar');
-    if (sidebar && sidebar.classList.contains('open')) { closeMobileMenu(); }
-    else { showScreen('categories'); }
-  }
+  else if (e.key === 'Escape') showScreen('categories');
 });

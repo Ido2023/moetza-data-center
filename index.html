@@ -106,8 +106,7 @@
        CATEGORY VIEW
        ============================================= -->
   <section id="category-screen" class="screen" role="region" aria-label="תצוגת תחום">
-    <div class="sidebar-overlay" id="sidebar-overlay" onclick="closeMobileMenu()"></div>
-    <nav class="sidebar" id="sidebar" aria-label="ניווט בין תחומים">
+    <nav class="sidebar" aria-label="ניווט בין תחומים">
       <button class="sidebar-logo-wrap" onclick="showScreen('categories')" aria-label="חזרה למפת התחומים">
         <img src="לוגו המועצה לגיל הרך.png לבן.png" alt="סמל המועצה לגיל הרך" width="40" height="40">
       </button>
@@ -142,9 +141,6 @@
     </nav>
     <main class="main-area" id="main-content">
       <header class="top-header">
-        <button class="mobile-menu-btn" id="mobile-menu-btn" onclick="toggleMobileMenu()" aria-label="תפריט ניווט">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-        </button>
         <h2 class="header-title" id="header-title"></h2>
         <button class="export-btn" id="export-btn" onclick="exportToExcel()" aria-label="ייצוא הנתונים לקובץ אקסל">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
@@ -162,10 +158,6 @@
           <span class="sr-only">טוען את הדוח...</span>
         </div>
         <iframe id="pbi-iframe" allowFullScreen="true" title="דוח נתונים"></iframe>
-        <button class="mobile-fullscreen-btn" id="mobile-fullscreen-btn" onclick="toggleReportFullscreen()" aria-label="הצג דוח במסך מלא">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>
-          מסך מלא
-        </button>
       </div>
     </main>
   </section>
