@@ -177,21 +177,87 @@ function isMobile() {
 }
 
 function loadPage(pageId) {
-  var iframe = document.getElementById('pbi-iframe');
   var loading = document.getElementById('iframe-loading');
   loading.classList.remove('hidden');
   loading.setAttribute('aria-hidden', 'false');
 
-  // Build URL with mobile-optimized parameters
-  var url = PBI_BASE + '&pageName=' + pageId;
   if (isMobile()) {
-    // Hide filter/nav panes on mobile to maximize report space
-    url += '&filterPaneEnabled=false&navContentPaneEnabled=false';
+    loadPageMobile(pageId);
+  } else {
+    loadPageDesktop(pageId);
   }
+}
 
-  iframe.src = url;
+function loadPageDesktop(pageId) {
+  var iframe = document.getElementById('pbi-iframe');
+  var container = document.getElementById('pbi-embed-container');
+  iframe.style.display = '';
+  container.style.display = 'none';
+  iframe.src = PBI_BASE + '&pageName=' + pageId;
   iframe.onload = function() {
     setTimeout(function() {
+      var loading = document.getElementById('iframe-loading');
+      loading.classList.add('hidden');
+      loading.setAttribute('aria-hidden', 'true');
+    }, 300);
+  };
+}
+
+function loadPageMobile(pageId) {
+  var iframe = document.getElementById('pbi-iframe');
+  var container = document.getElementById('pbi-embed-container');
+  iframe.style.display = 'none';
+  container.style.display = 'block';
+
+  // Embed using Power BI JS SDK with mobile layout
+  var embedUrl = PBI_BASE + '&pageName=' + pageId
+    + '&filterPaneEnabled=false&navContentPaneEnabled=false';
+
+  var config = {
+    type: 'report',
+    embedUrl: embedUrl,
+    pageName: pageId,
+    tokenType: 0,
+    settings: {
+      layoutType: 1, // MobilePortrait
+      panes: {
+        filters: { visible: false },
+        pageNavigation: { visible: false }
+      },
+      background: 1 // Transparent
+    }
+  };
+
+  // Try embedding with PBI JS SDK for mobile layout
+  if (window.powerbi) {
+    try {
+      window.powerbi.reset(container);
+      window.powerbi.embed(container, config);
+      container.addEventListener('loaded', function onLoaded() {
+        container.removeEventListener('loaded', onLoaded);
+        var loading = document.getElementById('iframe-loading');
+        loading.classList.add('hidden');
+        loading.setAttribute('aria-hidden', 'true');
+      });
+      // Fallback timeout in case 'loaded' doesn't fire
+      setTimeout(function() {
+        var loading = document.getElementById('iframe-loading');
+        loading.classList.add('hidden');
+        loading.setAttribute('aria-hidden', 'true');
+      }, 5000);
+      return;
+    } catch(e) {
+      console.warn('PBI JS SDK embed failed, falling back to iframe:', e);
+    }
+  }
+
+  // Fallback: regular iframe with fitToWidth approach
+  iframe.style.display = '';
+  container.style.display = 'none';
+  iframe.src = embedUrl;
+  iframe.onload = function() {
+    setTimeout(function() {
+      var loading = document.getElementById('iframe-loading');
       loading.classList.add('hidden');
       loading.setAttribute('aria-hidden', 'true');
     }, 300);
