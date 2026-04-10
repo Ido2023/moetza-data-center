@@ -125,6 +125,7 @@ function openCategory(categoryKey) {
   currentPageIndex = 0;
   var cat = CATEGORIES[categoryKey];
   document.getElementById('header-title').textContent = cat.name;
+  closeMobileMenu();
 
   // Update sidebar active state
   document.querySelectorAll('.sidebar-item').forEach(function(item) {
@@ -171,12 +172,24 @@ function selectPage(index) {
   document.getElementById('pbi-iframe').setAttribute('title', 'דוח ' + cat.name + ' — ' + cat.pages[index].name);
 }
 
+function isMobile() {
+  return window.innerWidth <= 768;
+}
+
 function loadPage(pageId) {
   var iframe = document.getElementById('pbi-iframe');
   var loading = document.getElementById('iframe-loading');
   loading.classList.remove('hidden');
   loading.setAttribute('aria-hidden', 'false');
-  iframe.src = PBI_BASE + '&pageName=' + pageId;
+
+  // Build URL with mobile-optimized parameters
+  var url = PBI_BASE + '&pageName=' + pageId;
+  if (isMobile()) {
+    // Hide filter/nav panes on mobile to maximize report space
+    url += '&filterPaneEnabled=false&navContentPaneEnabled=false';
+  }
+
+  iframe.src = url;
   iframe.onload = function() {
     setTimeout(function() {
       loading.classList.add('hidden');
@@ -284,6 +297,28 @@ function exportToExcel() {
 }
 
 // ============================================
+// Mobile Menu
+// ============================================
+function toggleMobileMenu() {
+  var sidebar = document.getElementById('sidebar');
+  var overlay = document.getElementById('sidebar-overlay');
+  var isOpen = sidebar.classList.contains('open');
+  if (isOpen) {
+    closeMobileMenu();
+  } else {
+    sidebar.classList.add('open');
+    overlay.classList.add('visible');
+  }
+}
+
+function closeMobileMenu() {
+  var sidebar = document.getElementById('sidebar');
+  var overlay = document.getElementById('sidebar-overlay');
+  sidebar.classList.remove('open');
+  overlay.classList.remove('visible');
+}
+
+// ============================================
 // Keyboard Navigation
 // ============================================
 document.addEventListener('keydown', function(e) {
@@ -291,5 +326,9 @@ document.addEventListener('keydown', function(e) {
   var len = CATEGORIES[currentCategory].pages.length;
   if (e.key === 'ArrowLeft' && currentPageIndex < len - 1) selectPage(currentPageIndex + 1);
   else if (e.key === 'ArrowRight' && currentPageIndex > 0) selectPage(currentPageIndex - 1);
-  else if (e.key === 'Escape') showScreen('categories');
+  else if (e.key === 'Escape') {
+    var sidebar = document.getElementById('sidebar');
+    if (sidebar && sidebar.classList.contains('open')) { closeMobileMenu(); }
+    else { showScreen('categories'); }
+  }
 });
