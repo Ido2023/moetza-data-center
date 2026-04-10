@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 60">
+
+  <!-- Stripes (shorter width) -->
+  <line x1="28" y1="17" x2="72" y2="17"
+        stroke="#1F2937"
+        stroke-width="1.2"
+        stroke-linecap="round"/>
+
+  <line x1="28" y1="43" x2="72" y2="43"
+        stroke="#1F2937"
+        stroke-width="1.2"
+        stroke-linecap="round"/>
+
+  <!-- Constructed Star of David (true 60° geometry) -->
+  <!-- Upright triangle -->
+  <polygon points="50,24 42.5,36 57.5,36"
+      fill="none"
+      stroke="#1F2937"
+      stroke-width="1.2"
+      stroke-linejoin="round"/>
+
+  <!-- Inverted triangle -->
+  <polygon points="50,40 42.5,28 57.5,28"
+      fill="none"
+      stroke="#1F2937"
+      stroke-width="1.2"
+      stroke-linejoin="round"/>
+
+</svg>

@@ -3,7 +3,6 @@
 
 # Power BI source files
 *.pbip
-*.Report/
 *.SemanticModel/
 
 # Data files (source Excel — generated JSON is tracked)

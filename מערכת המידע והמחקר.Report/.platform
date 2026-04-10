@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "מערכת המידע והמחקר"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "4d8e613d-7208-4f41-8e31-f5684a4f88b7"
+  }
+}

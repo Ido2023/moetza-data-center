@@ -1,0 +1,66 @@
+{
+  "name": "HagilHarach.design",
+  "background": "#F5F7FA",
+  "foreground": "#1F2A44",
+  "tableAccent": "#2CB1A1",
+  "dataColors": [
+    "#2CB1A1",
+    "#1F3A8A",
+    "#006775",
+    "#0094D6",
+    "#14B8A6",
+    "#0F766E",
+    "#3599B8",
+    "#4B5563",
+    "#6B7280",
+    "#9CA3AF",
+    "#93C5FD",
+    "#4AC5BB",
+    "#28738A",
+    "#1B4D5C",
+    "#168980",
+    "#6A9FB0",
+    "#016AB8",
+    "#3557B8",
+    "#5F646D",
+    "#8AA3EB",
+    "#1A5276",
+    "#48B0A0",
+    "#2E86AB",
+    "#0B3D5C",
+    "#7ABFBF",
+    "#345995",
+    "#2D6E7E",
+    "#A8D5E2",
+    "#5B8C8D",
+    "#1E4D6B"
+  ],
+  "maximum": "#2CB1A1",
+  "center": "#F5F7FA",
+  "minimum": "#1F3A8A",
+  "neutral": "#9CA3AF",
+  "bad": "#9CA3AF",
+  "good": "#2CB1A1",
+  "textClasses": {
+    "title": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 12,
+      "color": "#1F2A44"
+    },
+    "header": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 12,
+      "color": "#1F2A44"
+    },
+    "label": {
+      "fontFace": "Segoe UI",
+      "fontSize": 10,
+      "color": "#4B5563"
+    },
+    "callout": {
+      "fontFace": "Segoe UI Semibold",
+      "fontSize": 28,
+      "color": "#006775"
+    }
+  }
+}

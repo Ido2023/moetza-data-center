@@ -1,0 +1,152 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/report/3.2.0/schema.json",
+  "themeCollection": {
+    "baseTheme": {
+      "name": "CY25SU12",
+      "reportVersionAtImport": {
+        "visual": "2.5.0",
+        "report": "3.1.0",
+        "page": "2.3.0"
+      },
+      "type": "SharedResources"
+    },
+    "customTheme": {
+      "name": "HagilHarach.design666769714185839.json",
+      "reportVersionAtImport": {
+        "visual": "2.6.0",
+        "report": "3.2.0",
+        "page": "2.4.0"
+      },
+      "type": "RegisteredResources"
+    }
+  },
+  "objects": {
+    "section": [
+      {
+        "properties": {
+          "verticalAlignment": {
+            "expr": {
+              "Literal": {
+                "Value": "'Top'"
+              }
+            }
+          }
+        }
+      }
+    ],
+    "outspacePane": [
+      {
+        "properties": {
+          "expanded": {
+            "expr": {
+              "Literal": {
+                "Value": "true"
+              }
+            }
+          }
+        }
+      }
+    ]
+  },
+  "resourcePackages": [
+    {
+      "name": "SharedResources",
+      "type": "SharedResources",
+      "items": [
+        {
+          "name": "CY25SU12",
+          "path": "BaseThemes/CY25SU12.json",
+          "type": "BaseTheme"
+        }
+      ]
+    },
+    {
+      "name": "RegisteredResources",
+      "type": "RegisteredResources",
+      "items": [
+        {
+          "name": "_______12194926884370838.png",
+          "path": "_______12194926884370838.png",
+          "type": "Image"
+        },
+        {
+          "name": "background_new_7324570053163695.png",
+          "path": "background_new_7324570053163695.png",
+          "type": "Image"
+        },
+        {
+          "name": "coin-stack6304904544631975.png",
+          "path": "coin-stack6304904544631975.png",
+          "type": "Image"
+        },
+        {
+          "name": "community_(1)48126545570461843.png",
+          "path": "community_(1)48126545570461843.png",
+          "type": "Image"
+        },
+        {
+          "name": "earth-globe-with-continents-ma027587329039181485.png",
+          "path": "earth-globe-with-continents-ma027587329039181485.png",
+          "type": "Image"
+        },
+        {
+          "name": "Group_184860@2x7942694160565021.png",
+          "path": "Group_184860@2x7942694160565021.png",
+          "type": "Image"
+        },
+        {
+          "name": "HagilHarach.design666769714185839.json",
+          "path": "HagilHarach.design666769714185839.json",
+          "type": "CustomTheme"
+        },
+        {
+          "name": "israel_icon_minimal_20px3467721015851054.svg",
+          "path": "israel_icon_minimal_20px3467721015851054.svg",
+          "type": "Image"
+        },
+        {
+          "name": "link_(2)-12943196511041609.svg",
+          "path": "link_(2)-12943196511041609.svg",
+          "type": "Image"
+        },
+        {
+          "name": "love9586920877027869.png",
+          "path": "love9586920877027869.png",
+          "type": "Image"
+        },
+        {
+          "name": "pin_(2)6453406260949811.png",
+          "path": "pin_(2)6453406260949811.png",
+          "type": "Image"
+        },
+        {
+          "name": "sister-and-brother_(3)8832880577975276.png",
+          "path": "sister-and-brother_(3)8832880577975276.png",
+          "type": "Image"
+        },
+        {
+          "name": "slide5715015123403511.png",
+          "path": "slide5715015123403511.png",
+          "type": "Image"
+        },
+        {
+          "name": "world_icon_minimal_20px7471217045603809.svg",
+          "path": "world_icon_minimal_20px7471217045603809.svg",
+          "type": "Image"
+        }
+      ]
+    }
+  ],
+  "settings": {
+    "useStylableVisualContainerHeader": true,
+    "exportDataMode": "AllowSummarized",
+    "defaultFilterActionIsDataFilter": true,
+    "defaultDrillFilterOtherVisuals": true,
+    "allowChangeFilterTypes": true,
+    "useEnhancedTooltips": true,
+    "useDefaultAggregateDisplayName": true,
+    "queryLimitOption": "None",
+    "customMemoryLimit": "1048576",
+    "customTimeoutLimit": "225"
+  }
+}
