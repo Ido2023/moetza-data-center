@@ -51,9 +51,9 @@ var CATEGORIES = {
     { name: 'מקורות לקבלת מידע', id: 'd20b75b759a08a4e0760', tbl: 'seker', filter: 'הגורמים המשמעותיים לקבלת מידע לקראת או לאחר הלידה' },
     { name: 'תחומי ידע חסרים', id: 'b05bea2fadc19937b05e', tbl: 'seker', filter: 'תחומי ידע חסרים' },
     { name: 'הנקה', id: '0d843bab50c0284e7d07', tbl: 'data_indicators', filter: 'הנקה' },
-    { name: 'התפתחות הילד', id: '94ca322ab00dc45061d1', tbl: 'seker', filter: 'זמני המתנה לאבחון' },
+    { name: 'התפתחות הילד', id: '94ca322ab00dc45061d1', tbl: 'data_indicators', filter: 'זמני המתנה לאבחון' },
     { name: 'אבחון עיכוב התפתחות', id: 'cfcefdcc21c68905a942', tbl: 'seker', filter: 'עיכוב התפתחות' },
-    { name: 'טיפות חלב', id: '1bcefc6d212955c5bcb6', tbl: 'data_indicators', filter: 'טיפות חלב' },
+    { name: 'טיפות חלב', id: '1bcefc6d212955c5bcb6', tbl: 'tipa', filter: null },
     { name: 'עודף משקל', id: 'efcef504a9ddb0202e2c', tbl: 'data_indicators', filter: 'עודף משקל' },
     { name: 'התחסנות תינוקות', id: 'ed24de00a0791e0503d4', tbl: 'data_indicators', filter: 'התחסנות תינוקות' },
     { name: 'התחסנות בישראל', id: 'f8757e3b98e1cca5467e', tbl: 'data_indicators', filter: 'התחסנות' },
@@ -151,6 +151,7 @@ function openCategory(categoryKey) {
   document.querySelectorAll('.screen').forEach(function(s) { s.classList.remove('active'); });
   document.getElementById('category-screen').classList.add('active');
   loadPage(cat.pages[0].id);
+  updateExportBtnVisibility();
 
   // Update iframe title
   document.getElementById('pbi-iframe').setAttribute('title', 'דוח ' + cat.name + ' — ' + cat.pages[0].name);
@@ -166,9 +167,18 @@ function selectPage(index) {
   var a = document.querySelector('.sub-tab.active');
   if (a) a.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
   loadPage(cat.pages[index].id);
+  updateExportBtnVisibility();
 
   // Update iframe title
   document.getElementById('pbi-iframe').setAttribute('title', 'דוח ' + cat.name + ' — ' + cat.pages[index].name);
+}
+
+// Hide export-to-Excel button on survey (seker) pages — raw respondent data must never be exportable.
+function updateExportBtnVisibility() {
+  var btn = document.getElementById('export-btn');
+  if (!btn || !currentCategory) return;
+  var page = CATEGORIES[currentCategory].pages[currentPageIndex];
+  btn.hidden = (page && page.tbl === 'seker');
 }
 
 function loadPage(pageId) {
@@ -231,6 +241,13 @@ var COL_LABELS = {
 
 function exportToExcel() {
   var page = CATEGORIES[currentCategory].pages[currentPageIndex];
+
+  // Hard block: raw parent-survey data is never exportable.
+  if (page.tbl === 'seker') {
+    alert('ייצוא נתוני סקר הורים אינו זמין');
+    return;
+  }
+
   var btn = document.getElementById('export-btn');
   btn.disabled = true;
   btn.innerHTML = '<span class="spinner" style="width:16px;height:16px;border-width:2px;"></span> מייצא...';
@@ -241,27 +258,16 @@ function exportToExcel() {
 
   loadJSON(tbl)
     .then(function(allRows) {
-      var rows;
-      if (tbl === 'seker') {
-        // Seker data is raw survey responses — export all rows as parsed JSON
-        rows = allRows.map(function(row) {
-          if (row.data) {
-            return typeof row.data === 'string' ? JSON.parse(row.data) : row.data;
-          }
-          return row;
-        });
-      } else {
-        var filtered = filterData(allRows, filterCol, filter);
-        rows = filtered.map(function(row) {
-          var clean = {};
-          for (var k in row) {
-            if (EXCLUDE_COLS.indexOf(k) !== -1) continue;
-            var label = COL_LABELS[k] || k;
-            clean[label] = row[k];
-          }
-          return clean;
-        });
-      }
+      var filtered = filterData(allRows, filterCol, filter);
+      var rows = filtered.map(function(row) {
+        var clean = {};
+        for (var k in row) {
+          if (EXCLUDE_COLS.indexOf(k) !== -1) continue;
+          var label = COL_LABELS[k] || k;
+          clean[label] = row[k];
+        }
+        return clean;
+      });
 
       if (!rows.length) {
         alert('אין נתונים לייצוא עבור דף זה');
