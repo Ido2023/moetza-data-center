@@ -52,7 +52,7 @@ var CATEGORIES = {
     { name: 'תחומי ידע חסרים', id: 'b05bea2fadc19937b05e', tbl: 'seker', filter: 'תחומי ידע חסרים' },
     { name: 'הנקה', id: '0d843bab50c0284e7d07', tbl: 'data_indicators', filter: 'הנקה' },
     { name: 'התפתחות הילד', id: '94ca322ab00dc45061d1', tbl: 'data_indicators', filter: 'זמני המתנה לאבחון' },
-    { name: 'אבחון עיכוב התפתחות', id: 'cfcefdcc21c68905a942', tbl: 'seker', filter: 'עיכוב התפתחות' },
+    { name: 'אבחון עיכוב התפתחות', id: 'cfcefdcc21c68905a942', tbl: 'data_indicators', filter: 'עיכוב התפתחות' },
     { name: 'טיפות חלב', id: '1bcefc6d212955c5bcb6', tbl: 'tipa', filter: null },
     { name: 'עודף משקל', id: 'efcef504a9ddb0202e2c', tbl: 'data_indicators', filter: 'עודף משקל' },
     { name: 'התחסנות תינוקות', id: 'ed24de00a0791e0503d4', tbl: 'data_indicators', filter: 'התחסנות תינוקות' },

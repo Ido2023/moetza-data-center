@@ -508,6 +508,7 @@ html, body {
   display: flex; align-items: center; gap: 6px;
   transition: background 0.2s;
 }
+.export-btn[hidden] { display: none; }
 .export-btn:hover { background: rgba(255,255,255,0.25); }
 .export-btn:disabled { opacity: 0.5; cursor: wait; }
 .export-btn svg { width: 16px; height: 16px; }
