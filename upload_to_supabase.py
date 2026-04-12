@@ -8,9 +8,11 @@
   python upload_to_supabase.py DATA TALIS   <- סנכרון רק טבלאות ספציפיות
 
 דרישות:
-  הגדר משתני סביבה לפני הרצה:
-    set SUPABASE_URL=https://your-project.supabase.co
-    set SUPABASE_SERVICE_KEY=sb_secret_...
+  קובץ .env.local באותה תיקייה עם:
+    SUPABASE_URL=https://your-project.supabase.co
+    SUPABASE_SERVICE_KEY=sb_secret_...
+
+  לחלופין — הגדר משתני סביבה לפני הרצה.
 """
 import pandas as pd
 import requests
@@ -26,16 +28,36 @@ if sys.platform == 'win32':
     sys.stdout = io.TextIOWrapper(sys.stdout.buffer, encoding='utf-8', errors='replace')
     sys.stderr = io.TextIOWrapper(sys.stderr.buffer, encoding='utf-8', errors='replace')
 
+
+def load_env_file(path):
+    """Load KEY=VALUE pairs from a .env file into os.environ."""
+    if not os.path.isfile(path):
+        return
+    with open(path, 'r', encoding='utf-8') as f:
+        for line in f:
+            line = line.strip()
+            if not line or line.startswith('#') or '=' not in line:
+                continue
+            key, _, value = line.partition('=')
+            key = key.strip()
+            value = value.strip().strip('"').strip("'")
+            if key and key not in os.environ:
+                os.environ[key] = value
+
+
+# Load .env.local if it exists (overridden by actual env vars)
+_SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+load_env_file(os.path.join(_SCRIPT_DIR, ".env.local"))
+load_env_file(os.path.join(_SCRIPT_DIR, ".env"))
+
 SUPABASE_URL = os.environ.get("SUPABASE_URL")
 SERVICE_KEY = os.environ.get("SUPABASE_SERVICE_KEY")
 
 if not SUPABASE_URL or not SERVICE_KEY:
-    print("ERROR: Missing environment variables.")
-    print("Set SUPABASE_URL and SUPABASE_SERVICE_KEY before running.")
-    print()
-    print("Example:")
-    print("  set SUPABASE_URL=https://your-project.supabase.co")
-    print("  set SUPABASE_SERVICE_KEY=sb_secret_...")
+    print("ERROR: Missing credentials.")
+    print("Create a .env.local file in the script directory with:")
+    print("  SUPABASE_URL=https://your-project.supabase.co")
+    print("  SUPABASE_SERVICE_KEY=sb_secret_...")
     sys.exit(1)
 
 HEADERS = {
