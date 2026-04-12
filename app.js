@@ -26,7 +26,11 @@
 // ============================================
 var PBI_BASE = 'https://app.powerbi.com/view?r=eyJrIjoiZTZmNmUyOTctOWFhZC00NTE1LWExOGQtZDczYTM4ZDY1ZTUxIiwidCI6IjU1Njk3MDA0LWJmZGItNDUzYS1iOThhLTJlYmIzM2E1NGFmZCIsImMiOjl9';
 
-// Data cache for static JSON files
+// Supabase
+var SUPABASE_URL = 'https://xbskwyycyuumgrhzjgkp.supabase.co';
+var SUPABASE_KEY = 'sb_publishable_ySitLJplcUGsUjcT_ETRPA_LVb5GnvG';
+
+// Data cache
 var dataCache = {};
 
 var CATEGORIES = {
@@ -196,8 +200,59 @@ function loadPage(pageId) {
 }
 
 // ============================================
-// Static JSON Data Loading
+// Supabase Data Loading
 // ============================================
+function fetchAllRows(url) {
+  var allRows = [];
+  var batchSize = 5000;
+
+  function fetchBatch(offset) {
+    return fetch(url, {
+      headers: {
+        'apikey': SUPABASE_KEY,
+        'Authorization': 'Bearer ' + SUPABASE_KEY,
+        'Range': offset + '-' + (offset + batchSize - 1),
+        'Prefer': 'count=exact'
+      }
+    }).then(function(response) {
+      if (!response.ok && response.status !== 206) {
+        throw new Error('שגיאה בטעינת נתונים: ' + response.status);
+      }
+      return response.json().then(function(rows) {
+        allRows = allRows.concat(rows);
+        var range = response.headers.get('Content-Range');
+        if (range) {
+          var total = parseInt(range.split('/')[1], 10);
+          if (allRows.length < total) {
+            return fetchBatch(allRows.length);
+          }
+        }
+        return allRows;
+      });
+    });
+  }
+
+  return fetchBatch(0);
+}
+
+function loadFromSupabase(tableName, filterCol, filterValue) {
+  var cacheKey = tableName + ':' + (filterValue || 'ALL');
+  if (dataCache[cacheKey]) {
+    return Promise.resolve(dataCache[cacheKey]);
+  }
+
+  var url = SUPABASE_URL + '/rest/v1/' + tableName + '?select=*';
+  if (filterValue && filterCol) {
+    url += '&' + encodeURIComponent(filterCol) + '=eq.' + encodeURIComponent(filterValue);
+  }
+
+  return fetchAllRows(url).then(function(data) {
+    dataCache[cacheKey] = data;
+    return data;
+  });
+}
+
+// Fallback to static JSON
 function loadJSON(tableName) {
   if (dataCache[tableName]) {
     return Promise.resolve(dataCache[tableName]);
@@ -256,9 +311,14 @@ function exportToExcel() {
   var filter = page.filter;
   var filterCol = page.filterCol || (tbl === 'data_indicators' ? 'sinun_amud' : tbl === 'talis' ? 'masach' : 'noseh');
 
-  loadJSON(tbl)
-    .then(function(allRows) {
-      var filtered = filterData(allRows, filterCol, filter);
+  loadFromSupabase(tbl, filterCol, filter)
+    .catch(function(err) {
+      console.warn('Supabase failed, falling back to JSON:', err.message);
+      return loadJSON(tbl).then(function(allRows) {
+        return filterData(allRows, filterCol, filter);
+      });
+    })
+    .then(function(filtered) {
       var rows = filtered.map(function(row) {
         var clean = {};
         for (var k in row) {
