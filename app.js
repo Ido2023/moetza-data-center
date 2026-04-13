@@ -61,7 +61,6 @@ var CATEGORIES = {
     { name: 'עודף משקל', id: 'efcef504a9ddb0202e2c', tbl: 'data_indicators', filter: 'עודף משקל' },
     { name: 'התחסנות תינוקות', id: 'ed24de00a0791e0503d4', tbl: 'data_indicators', filter: 'התחסנות תינוקות' },
     { name: 'התחסנות בישראל', id: 'f8757e3b98e1cca5467e', tbl: 'data_indicators', filter: 'התחסנות' },
-    { name: 'התחסנות לפי ישוב', id: '088403a8528424b8db98', tbl: 'data_indicators', filter: 'התחסנות לפי ישובים' },
     { name: 'היפגעות ילדים', id: 'c948591c45447abe0810', tbl: 'data_indicators', filter: 'היפגעות ילדים' },
     { name: 'תמותת תינוקות', id: '02e7dcec22501a4ae50c', tbl: 'data_indicators', filter: 'תמותת תינוקות' }
   ]},
@@ -80,7 +79,8 @@ var CATEGORIES = {
     { name: 'שעות', id: '536e84d354dedce6a002', tbl: 'municipal', filter: 'חינוך והשכלה', filterCol: 'noseh' },
     { name: 'גנים', id: 'cdfb0e1d002e31163be2', tbl: 'municipal', filter: 'חינוך והשכלה', filterCol: 'noseh' },
     { name: 'מדדים לפי רשויות', id: '93c258eb7b8dec2be25a', tbl: 'municipal', filter: null },
-    { name: 'מגוון מדדים לרשות', id: 'f7507c92420bd2432693', tbl: 'municipal', filter: null }
+    { name: 'מגוון מדדים לרשות', id: 'f7507c92420bd2432693', tbl: 'municipal', filter: null },
+    { name: 'התחסנות לפי ישוב', id: '088403a8528424b8db98', tbl: 'data_indicators', filter: 'התחסנות לפי ישובים' }
   ]},
   budget: { name: 'תקציב', pages: [
     { name: 'תקצוב הגיל הרך בישראל', id: '375701d0cb450b36869b', tbl: 'data_indicators', filter: 'תקצוב הגיל הרך' },
