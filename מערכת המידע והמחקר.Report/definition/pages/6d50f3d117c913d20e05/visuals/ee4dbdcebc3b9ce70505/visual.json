@@ -7,7 +7,7 @@
     "z": 8000,
     "height": 36,
     "width": 36,
-    "tabOrder": 19000
+    "tabOrder": 11000
   },
   "visual": {
     "visualType": "image",
@@ -46,7 +46,6 @@
         }
       ]
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "general": [
         {
@@ -61,6 +60,7 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

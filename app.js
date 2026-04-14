@@ -79,7 +79,13 @@ var CATEGORIES = {
     { name: 'שעות', id: '536e84d354dedce6a002', tbl: 'municipal', filter: 'חינוך והשכלה', filterCol: 'noseh' },
     { name: 'גנים', id: 'cdfb0e1d002e31163be2', tbl: 'municipal', filter: 'חינוך והשכלה', filterCol: 'noseh' },
     { name: 'מדדים לפי רשויות', id: '93c258eb7b8dec2be25a', tbl: 'municipal', filter: null },
-    { name: 'מגוון מדדים לרשות', id: 'f7507c92420bd2432693', tbl: 'municipal', filter: null },
+    { name: 'ישובים', id: '5124c346eecbda2e119b', tbl: 'data_indicators', filterCol: 'medad', filter: [
+      'התחסנות לפי ישובים',
+      'ילדים בגנים של משרד החינוך',
+      'מספר גנים באופק חדש',
+      'מספר גנים פעילים',
+      'תושבים לפי גיל'
+    ] },
     { name: 'התחסנות לפי ישוב', id: '088403a8528424b8db98', tbl: 'data_indicators', filter: 'התחסנות לפי ישובים' }
   ]},
   budget: { name: 'תקציב', pages: [
@@ -236,14 +242,21 @@ function fetchAllRows(url) {
 }
 
 function loadFromSupabase(tableName, filterCol, filterValue) {
-  var cacheKey = tableName + ':' + (filterValue || 'ALL');
+  var isList = Array.isArray(filterValue);
+  var cacheKey = tableName + ':' + (isList ? filterValue.join('|') : (filterValue || 'ALL'));
   if (dataCache[cacheKey]) {
     return Promise.resolve(dataCache[cacheKey]);
   }
 
   var url = SUPABASE_URL + '/rest/v1/' + tableName + '?select=*';
-  if (filterValue && filterCol) {
-    url += '&' + encodeURIComponent(filterCol) + '=eq.' + encodeURIComponent(filterValue);
+  if (filterCol && filterValue) {
+    if (isList) {
+      // PostgREST in.() — wrap each value in double quotes to survive commas/parens inside values.
+      var quoted = filterValue.map(function(v) { return '"' + String(v).replace(/"/g, '\\"') + '"'; }).join(',');
+      url += '&' + encodeURIComponent(filterCol) + '=in.(' + encodeURIComponent(quoted) + ')';
+    } else {
+      url += '&' + encodeURIComponent(filterCol) + '=eq.' + encodeURIComponent(filterValue);
+    }
   }
 
   return fetchAllRows(url).then(function(data) {
@@ -270,6 +283,11 @@ function loadJSON(tableName) {
 
 function filterData(rows, filterCol, filterValue) {
   if (!filterValue) return rows;
+  if (Array.isArray(filterValue)) {
+    var set = {};
+    filterValue.forEach(function(v) { set[v] = true; });
+    return rows.filter(function(row) { return set[row[filterCol]] === true; });
+  }
   return rows.filter(function(row) {
     return row[filterCol] === filterValue;
   });

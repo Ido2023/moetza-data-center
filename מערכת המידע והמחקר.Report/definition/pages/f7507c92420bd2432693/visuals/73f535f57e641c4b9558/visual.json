@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "73f535f57e641c4b9558",
   "position": {
-    "x": 384.5146467547387,
-    "y": 198.50660539919588,
+    "x": 384.81380563124435,
+    "y": 172.06176203451409,
     "z": 22000,
-    "height": 467.59333716255026,
-    "width": 583.7564618035611,
+    "height": 488.28337874659405,
+    "width": 631.28065395095371,
     "tabOrder": 5000
   },
   "visual": {
@@ -31,20 +31,6 @@
             },
             {
               "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "MUNICIPAL"
-                    }
-                  },
-                  "Property": "פילוח"
-                }
-              },
-              "queryRef": "MUNICIPAL.פילוח",
-              "nativeQueryRef": "פילוח"
-            },
-            {
-              "field": {
                 "Aggregation": {
                   "Expression": {
                     "Column": {
@@ -60,7 +46,8 @@
                 }
               },
               "queryRef": "Sum(MUNICIPAL.ערך)",
-              "nativeQueryRef": "Sum of ערך"
+              "nativeQueryRef": " ערך",
+              "displayName": " ערך"
             }
           ]
         }
@@ -90,7 +77,7 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "258.37957493324024D"
+                  "Value": "430.36121504309233D"
                 }
               }
             }
@@ -104,13 +91,13 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "141.28198476754835D"
+                  "Value": "178.30707005822313D"
                 }
               }
             }
           },
           "selector": {
-            "metadata": "MUNICIPAL.פילוח"
+            "metadata": "Sum(MUNICIPAL.ערך)"
           }
         }
       ],
@@ -223,10 +210,59 @@
                   "Value": "1L"
                 }
               }
+            },
+            "styleHeader": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
             }
           },
           "selector": {
             "metadata": "Sum(MUNICIPAL.ערך)"
+          }
+        },
+        {
+          "properties": {
+            "styleHeader": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "styleTotal": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "alignment": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Center'"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "MUNICIPAL.מדד"
           }
         }
       ],
@@ -279,7 +315,7 @@
             "rowPadding": {
               "expr": {
                 "Literal": {
-                  "Value": "3D"
+                  "Value": "7D"
                 }
               }
             }
@@ -331,40 +367,151 @@
             "Property": "מדד"
           }
         },
-        "type": "Categorical"
-      },
-      {
-        "name": "6f93c72ec1ebe9231fd6",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "MUNICIPAL"
+        "type": "Categorical",
+        "filter": {
+          "Version": 2,
+          "From": [
+            {
+              "Name": "m",
+              "Entity": "MUNICIPAL",
+              "Type": 0
+            }
+          ],
+          "Where": [
+            {
+              "Condition": {
+                "In": {
+                  "Expressions": [
+                    {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Source": "m"
+                          }
+                        },
+                        "Property": "מדד"
+                      }
+                    }
+                  ],
+                  "Values": [
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'אוכלוסייה סוף 2021 סך הכל'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'אומדן מספר משקי בית (אלפים)'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'אחוז בלתי מועסקים'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'אחוז גידול האוכלוסייה לעומת השנה הקודמת'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'אחוז זכאים לתעודת בגרות מבין תלמידי כיתות יב'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'אחוז תלמידים נושרים'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'אשכול מדד חברתי כלכלי  (משנת 2021, מ-1 עד 10, 1 הנמוך ביותר)'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'הוצאה לנפש בתקציב הרגיל (ש\"ח)'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'ילדים בגנים של משרד החינוך'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'לידות חי'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'ממוצע תלמידים לכיתה'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'מספר ילדים שבגינם שולמו קצבאות'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'מספר משפחות של מקבלי קצבאות  בגין ילדים (סוף שנה)'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'עודף משקל והשמנה, כיתה א'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'שיעור פטירות תינוקות ל-1,000 לידות חי'"
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "Literal": {
+                          "Value": "'תוחלת חיים בלידה סך הכל'"
+                        }
+                      }
+                    ]
+                  ]
+                }
               }
-            },
-            "Property": "פילוח"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "11345f49accdd4684996",
-        "field": {
-          "Aggregation": {
-            "Expression": {
-              "Column": {
-                "Expression": {
-                  "SourceRef": {
-                    "Entity": "MUNICIPAL"
-                  }
-                },
-                "Property": "ערך"
-              }
-            },
-            "Function": 0
-          }
-        },
-        "type": "Advanced"
+            }
+          ]
+        }
       }
     ]
   }

@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "3e52b5ac788fb0d7a7c9",
   "position": {
-    "x": 28.699551569506728,
-    "y": 238.61627162075592,
+    "x": 29.179331306990882,
+    "y": 238.29787234042556,
     "z": 3000,
-    "height": 450.1729660474055,
-    "width": 915.1057014734145,
+    "height": 450.33434650455928,
+    "width": 987.23404255319156,
     "tabOrder": 6000
   },
   "visual": {
@@ -279,6 +279,174 @@
                     "Right": {
                       "Literal": {
                         "Value": "'EU-27 average'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "DATA"
+                          }
+                        },
+                        "Property": "פילוח"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'    מוסלמיות-דתיות ודתיות מאוד'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": -0.25
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "DATA"
+                          }
+                        },
+                        "Property": "פילוח"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'מוסלמיות-סך הכל'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 2,
+                      "Percent": 0
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "DATA"
+                          }
+                        },
+                        "Property": "פילוח"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'    מוסלמיות-לא כל כך דתיות ולא דתיות'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 5,
+                      "Percent": -0.5
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "DATA"
+                          }
+                        },
+                        "Property": "פילוח"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'יהודיות-סך הכל'"
                       }
                     }
                   }

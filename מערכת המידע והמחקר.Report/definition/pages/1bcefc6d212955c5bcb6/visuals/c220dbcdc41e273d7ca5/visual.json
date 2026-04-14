@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "c220dbcdc41e273d7ca5",
   "position": {
-    "x": 28.26086956521739,
-    "y": 239.1304347826087,
+    "x": 28.260869565217391,
+    "y": 239.13043478260869,
     "z": 3000,
-    "height": 448.9130434782609,
-    "width": 530.4347826086956,
+    "height": 448.91304347826087,
+    "width": 530.43478260869563,
     "tabOrder": 7000
   },
   "visual": {
@@ -778,6 +778,252 @@
                     "Right": {
                       "Literal": {
                         "Value": "'ישראל'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#006FA0'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "TIPA"
+                          }
+                        },
+                        "Property": "בעלות"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'מכבי שירותי בריאות'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0F8A7C'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "TIPA"
+                          }
+                        },
+                        "Property": "בעלות"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'משרד הבריאות'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#7888B8'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "TIPA"
+                          }
+                        },
+                        "Property": "בעלות"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'עיריית ירושלים'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#1E7B70'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "TIPA"
+                          }
+                        },
+                        "Property": "בעלות"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'עיריית תל אביב יפו'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#0F766E'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "TIPA"
+                          }
+                        },
+                        "Property": "בעלות"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'קופת חולים לאומית'"
+                      }
+                    }
+                  }
+                }
+              }
+            ]
+          }
+        },
+        {
+          "properties": {
+            "fill": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "Literal": {
+                      "Value": "'#00333A'"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "scopeId": {
+                  "Comparison": {
+                    "ComparisonKind": 0,
+                    "Left": {
+                      "Column": {
+                        "Expression": {
+                          "SourceRef": {
+                            "Entity": "TIPA"
+                          }
+                        },
+                        "Property": "בעלות"
+                      }
+                    },
+                    "Right": {
+                      "Literal": {
+                        "Value": "'שירותי בריאות כללית'"
                       }
                     }
                   }

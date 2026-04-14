@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "b2c907832ee054089512",
   "position": {
-    "x": 68.57142857142857,
-    "y": 108.57142857142858,
+    "x": 79.02518277822908,
+    "y": 136.21445978878961,
     "z": 17000,
-    "height": 91.42857142857143,
-    "width": 723.5714285714287,
+    "height": 70.70674248578392,
+    "width": 887.9935012185216,
     "tabOrder": 2000
   },
   "visual": {
@@ -131,6 +131,13 @@
                   "Value": "'מדד'"
                 }
               }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
             }
           }
         }
@@ -149,7 +156,6 @@
         }
       ]
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "general": [
         {
@@ -164,7 +170,8 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   },
   "filterConfig": {
     "filters": [

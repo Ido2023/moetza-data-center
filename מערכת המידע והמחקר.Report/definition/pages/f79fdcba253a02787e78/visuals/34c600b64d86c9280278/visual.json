@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "34c600b64d86c9280278",
   "position": {
-    "x": 28.139059304703476,
-    "y": 238.85480572597137,
+    "x": 28.374384236453203,
+    "y": 238.52216748768473,
     "z": 3000,
-    "height": 449.57055214723925,
-    "width": 942.9856850715747,
+    "height": 449.55665024630542,
+    "width": 970.04926108374389,
     "tabOrder": 4000
   },
   "visual": {
@@ -134,7 +134,7 @@
             "maxMarginFactor": {
               "expr": {
                 "Literal": {
-                  "Value": "15L"
+                  "Value": "50L"
                 }
               }
             }
@@ -947,51 +947,5 @@
       ]
     },
     "drillFilterOtherVisuals": true
-  },
-  "filterConfig": {
-    "filters": [
-      {
-        "name": "ee7a9ac0d49741f25adc",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DATA"
-              }
-            },
-            "Property": "מדינה"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "64465e7ba1860ded9a79",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DATA"
-              }
-            },
-            "Property": "פילוח"
-          }
-        },
-        "type": "Categorical"
-      },
-      {
-        "name": "b47c68bfdf3e7c3140b6",
-        "field": {
-          "Measure": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "DATA"
-              }
-            },
-            "Property": "ערך"
-          }
-        },
-        "type": "Advanced"
-      }
-    ]
   }
 }

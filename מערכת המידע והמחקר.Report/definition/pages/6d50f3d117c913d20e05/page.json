@@ -104,5 +104,12 @@
         }
       }
     ]
-  }
+  },
+  "visualInteractions": [
+    {
+      "source": "1118f3eb55a4ce3c759d",
+      "target": "e934bc3a636557308187",
+      "type": "NoFilter"
+    }
+  ]
 }

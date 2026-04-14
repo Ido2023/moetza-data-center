@@ -7,7 +7,7 @@
     "z": 16000,
     "height": 36,
     "width": 1130,
-    "tabOrder": 15000
+    "tabOrder": 7000
   },
   "visual": {
     "visualType": "shape",
@@ -137,7 +137,6 @@
         }
       ]
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "general": [
         {
@@ -152,7 +151,8 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   },
   "howCreated": "InsertVisualButton"
 }

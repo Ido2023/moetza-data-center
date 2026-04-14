@@ -2,12 +2,12 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "3574ad2d8a11764bb69e",
   "position": {
-    "x": 873.5417687096158,
-    "y": 105.68896133666141,
+    "x": 873.43465045592711,
+    "y": 106.01823708206688,
     "z": 11000,
-    "height": 35.26980482204363,
-    "width": 51.43513203214696,
-    "tabOrder": 21000
+    "height": 35.015197568389063,
+    "width": 51.550151975683896,
+    "tabOrder": 13000
   },
   "visual": {
     "visualType": "shape",
@@ -59,7 +59,7 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "DATA"
+                          "Entity": "source"
                         }
                       },
                       "Property": "שנה"

@@ -6,7 +6,7 @@
     "y": 171.30384836300976,
     "z": 3000,
     "height": 516.852383687536,
-    "width": 342.6076967260195,
+    "width": 342.60769672601953,
     "tabOrder": 3000
   },
   "visual": {
@@ -854,7 +854,7 @@
             "showTitle": {
               "expr": {
                 "Literal": {
-                  "Value": "false"
+                  "Value": "true"
                 }
               }
             },
@@ -906,14 +906,14 @@
             "centerLatitude": {
               "expr": {
                 "Literal": {
-                  "Value": "32.26989806572958D"
+                  "Value": "32.08771956173034D"
                 }
               }
             },
             "centerLongitude": {
               "expr": {
                 "Literal": {
-                  "Value": "34.88586187362671D"
+                  "Value": "34.78494644165039D"
                 }
               }
             }
@@ -975,5 +975,70 @@
       ]
     },
     "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "252128af81ee010b4bd6",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "MUNICIPAL"
+              }
+            },
+            "Property": "מחוז"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "f2c483366b8dadeb1d0b",
+        "field": {
+          "Aggregation": {
+            "Expression": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "MUNICIPAL"
+                  }
+                },
+                "Property": "שם הרשות"
+              }
+            },
+            "Function": 3
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "02d9fe171b41ae6761b8",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "MUNICIPAL"
+              }
+            },
+            "Property": "LONGTITUDE"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "93b006b79000ce6b8c69",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "MUNICIPAL"
+              }
+            },
+            "Property": "LATITUDE"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

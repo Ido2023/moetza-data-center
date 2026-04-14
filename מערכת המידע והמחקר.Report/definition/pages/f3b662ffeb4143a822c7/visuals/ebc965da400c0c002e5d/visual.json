@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "ebc965da400c0c002e5d",
   "position": {
-    "x": 304.93685419058556,
-    "y": 108.74856486796786,
+    "x": 288.87537993920972,
+    "y": 108.93617021276596,
     "z": 18000,
-    "height": 77.15269804822044,
-    "width": 474.6727898966705,
+    "height": 76.838905775075986,
+    "width": 477.56838905775078,
     "tabOrder": 2000
   },
   "visual": {
@@ -156,7 +156,6 @@
         }
       ]
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "general": [
         {
@@ -171,6 +170,25 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "9e5b1be0ebc148de1843",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "TALIS"
+              }
+            },
+            "Property": "מדד"
+          }
+        },
+        "type": "Categorical"
+      }
+    ]
   }
 }

@@ -2,11 +2,11 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.7.0/schema.json",
   "name": "8e975e42f4363fb4c295",
   "position": {
-    "x": 74.99138426191844,
+    "x": 74.991384261918441,
     "y": 108.8110281447444,
     "z": 23000,
-    "height": 63.22802986789202,
-    "width": 296.2894887995405,
+    "height": 63.228029867892019,
+    "width": 296.28948879954049,
     "tabOrder": 2000
   },
   "visual": {
@@ -166,7 +166,6 @@
         }
       ]
     },
-    "drillFilterOtherVisuals": true,
     "visualContainerObjects": {
       "general": [
         {
@@ -181,7 +180,8 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   },
   "filterConfig": {
     "filters": [
@@ -343,20 +343,6 @@
           ]
         },
         "howCreated": "User"
-      },
-      {
-        "name": "946fd5cc071a65829157",
-        "field": {
-          "Column": {
-            "Expression": {
-              "SourceRef": {
-                "Entity": "MUNICIPAL"
-              }
-            },
-            "Property": "שם הרשות"
-          }
-        },
-        "type": "Categorical"
       }
     ]
   }
